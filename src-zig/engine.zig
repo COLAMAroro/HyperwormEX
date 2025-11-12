@@ -6,8 +6,13 @@ const c = @import("const.zig");
 
 pub const vec3 = @import("engine/vec3.zig");
 pub const utils = @import("engine/utils.zig");
+pub const text = @import("engine/text.zig");
+pub const aabb = @import("engine/aabb.zig");
+pub const camera = @import("engine/camera.zig");
 
 pub const Vec3 = vec3.Vec3;
+pub const AABB = aabb.AABB;
+pub const Camera = camera.Camera;
 
 // Simple world structure (voxel data)
 pub const World = struct {
@@ -52,22 +57,7 @@ pub const World = struct {
     }
 };
 
-// Camera structure
-pub const Camera = struct {
-    pos: Vec3,
-    dir: Vec3,
-    pitch: f32,
-    yaw: f32,
 
-    pub fn init() Camera {
-        return .{
-            .pos = .{ .x = 0.0, .y = 0.0, .z = 0.0 },
-            .dir = .{ .x = 1.0, .y = 0.0, .z = 0.0 },
-            .pitch = 0.0,
-            .yaw = 0.0,
-        };
-    }
-};
 
 // Main render context
 pub const Render = struct {
@@ -75,7 +65,7 @@ pub const Render = struct {
     height: usize,
     frame_buffer: []u32,
     depth_buffer: []f32,
-    camera: Camera,
+    cam: Camera,
     world: ?*World,
     dt: f32,
     allocator: std.mem.Allocator,
@@ -93,7 +83,7 @@ pub const Render = struct {
             .height = height,
             .frame_buffer = frame_buffer,
             .depth_buffer = depth_buffer,
-            .camera = Camera.init(),
+            .cam = Camera.init(.{ .x = 0.0, .y = 0.0, .z = 0.0 }),
             .world = null,
             .dt = 0.016, // ~60 FPS default
             .allocator = allocator,
@@ -110,12 +100,9 @@ pub const Render = struct {
         @memset(self.depth_buffer, c.RENDER_DISTANCE);
     }
 
-    pub fn drawText(self: *Render, text: []const u8, y: usize) void {
-        // Simple text rendering placeholder
-        _ = self;
-        _ = text;
-        _ = y;
-        // Text rendering would be implemented here
+    pub fn drawText(self: *Render, txt: []const u8, y: usize) void {
+        const text_mod = @import("engine/text.zig");
+        text_mod.drawCentered(self.frame_buffer, self.width, self.height, txt, y, 0xFFFFFF);
     }
 
     pub fn renderWorld(self: *Render) void {

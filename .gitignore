@@ -7,3 +7,7 @@ build/
 *.gcda
 *.gcov
 *.zip
+
+# Zig build artifacts
+.zig-cache/
+zig-out/
