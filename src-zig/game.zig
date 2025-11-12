@@ -3,6 +3,7 @@
 
 const std = @import("std");
 const engine = @import("engine.zig");
+const tunnel = @import("tunnel.zig");
 
 pub const GameState = enum {
     init,
@@ -37,15 +38,20 @@ pub const Game = struct {
     }
 
     pub fn update(self: *Game, render: *engine.Render) bool {
-        _ = render;
-
         switch (self.state) {
             .init => {
                 self.state = .menu;
             },
             .menu => {
-                // Menu logic here
-                // Stay in menu until player input triggers state change
+                // Draw tunnel effect background
+                tunnel.draw(render);
+                
+                // Draw menu text
+                render.drawText("HYPERWORM EX", 40);
+                render.drawText("PRESS SPACE TO START", 120);
+                render.drawText("PRESS Q TO QUIT", 135);
+                
+                // Menu logic - stay in menu until player input triggers state change
             },
             .newgame => {
                 self.round = 0;
