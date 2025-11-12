@@ -45,7 +45,7 @@ pub const Game = struct {
             },
             .menu => {
                 // Menu logic here
-                self.state = .exit; // Exit after one frame for null backend
+                // Stay in menu until player input triggers state change
             },
             .newgame => {
                 self.round = 0;
