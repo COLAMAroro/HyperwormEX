@@ -17,7 +17,18 @@ The engine features:
 This is the modified "Post Jam" version, which decouples the rendering,
 input and audio backends to ease creation of custom ports.
 
-## Building the Game
+## Zig Port
+
+A Zig port of Hyperworm EX is available with **significantly reduced binary size** (15KB vs 34KB)!
+
+See [ZIG_PORT.md](ZIG_PORT.md) for details on building and using the Zig version.
+
+```bash
+# Build the Zig version (requires Zig 0.15.2+)
+zig build -Drelease
+```
+
+## Building the Game (C Version)
 
 The game targets Ubuntu 24.04 as this is the closest Linux distribution
 supported for the jam (Linux Mint Wilma).
