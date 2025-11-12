@@ -89,8 +89,8 @@ pub const Platform = struct {
         // Update mouse delta for FPS camera
         if (self.mouse_locked) {
             const mouse_pos = raylib.GetMousePosition();
-            const screen_center_x: i32 = @intCast(raylib.GetScreenWidth() / 2);
-            const screen_center_y: i32 = @intCast(raylib.GetScreenHeight() / 2);
+            const screen_center_x: i32 = @divTrunc(raylib.GetScreenWidth(), 2);
+            const screen_center_y: i32 = @divTrunc(raylib.GetScreenHeight(), 2);
 
             // Calculate delta (would need to store in render struct)
             _ = mouse_pos.x - @as(f32, @floatFromInt(screen_center_x));

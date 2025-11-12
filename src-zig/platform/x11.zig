@@ -89,8 +89,8 @@ pub const Platform = struct {
         _ = X11.XMapWindow(display, window);
         _ = X11.XStoreName(display, window, c.WINDOW_NAME);
 
-        // Create OpenGL context
-        const glx_context = X11.glXCreateContext(display, visual_info, null, X11.GL_TRUE) orelse
+        // Create OpenGL context (direct rendering = True/1)
+        const glx_context = X11.glXCreateContext(display, visual_info, null, 1) orelse
             return error.CannotCreateGLContext;
 
         // Make context current
