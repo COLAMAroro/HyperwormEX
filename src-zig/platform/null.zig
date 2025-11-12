@@ -27,11 +27,7 @@ pub const Platform = struct {
         // Simulate fixed timestep
         render.dt = 0.016; // 60 FPS
 
-        // Run for limited frames in null backend
-        if (self.frame_count >= 10) {
-            return false;
-        }
-
+        // Null backend runs indefinitely
         return true;
     }
 
