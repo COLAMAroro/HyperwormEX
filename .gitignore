@@ -1,6 +1,7 @@
 voxel
 *.dSYM
 build/
+build_debug/
 .vscode/
 .clangd
 *.gcno
