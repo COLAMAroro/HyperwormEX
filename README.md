@@ -19,7 +19,7 @@ input and audio backends to ease creation of custom ports.
 
 ## Zig Port
 
-A Zig port of Hyperworm EX is available with **significantly reduced binary size** (15KB vs 34KB for null backend)!
+A Zig port of Hyperworm EX is available with **significantly reduced binary size** (19KB vs 34KB for null backend, including color LUT and tunnel effect)!
 
 See [ZIG_PORT.md](ZIG_PORT.md) for details on building and using the Zig version.
 

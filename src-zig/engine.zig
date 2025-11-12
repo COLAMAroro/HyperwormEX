@@ -9,6 +9,7 @@ pub const utils = @import("engine/utils.zig");
 pub const text = @import("engine/text.zig");
 pub const aabb = @import("engine/aabb.zig");
 pub const camera = @import("engine/camera.zig");
+pub const lut = @import("engine/lut.zig");
 
 pub const Vec3 = vec3.Vec3;
 pub const AABB = aabb.AABB;

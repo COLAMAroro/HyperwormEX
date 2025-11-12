@@ -9,6 +9,7 @@ const c = @import("const.zig");
 const engine = @import("engine.zig");
 const platform = @import("platform.zig");
 const game_mod = @import("game.zig");
+const tunnel = @import("tunnel.zig");
 
 pub fn main() !void {
     std.debug.print("[GAME] Starting Hyperworm EX (Zig)...\n", .{});
@@ -20,6 +21,14 @@ pub fn main() !void {
     // Create render context
     var render = try engine.Render.init(c.SOFTWARE_WIDTH, c.SOFTWARE_HEIGHT);
     defer render.deinit();
+
+    // Initialize color LUT
+    std.debug.print("[GAME] Initializing color LUT...\n", .{});
+    engine.lut.reset();
+
+    // Initialize tunnel effect
+    std.debug.print("[GAME] Initializing tunnel effect...\n", .{});
+    tunnel.init();
 
     // Display loading message
     render.drawText("PRECACHING...", c.SOFTWARE_HEIGHT / 2 - 5);
