@@ -9,6 +9,12 @@ const engine = @import("../engine.zig");
 pub const Platform = struct {
     frame_count: u64,
 
+    pub fn isKeyPressed(self: *const Platform, key: anytype) bool {
+        _ = self;
+        _ = key;
+        return false; // Null backend has no input
+    }
+
     pub fn init() !Platform {
         std.debug.print("[PLATFORM] Initializing Null backend...\n", .{});
         return Platform{

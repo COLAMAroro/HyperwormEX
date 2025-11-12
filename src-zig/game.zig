@@ -4,6 +4,8 @@
 const std = @import("std");
 const engine = @import("engine.zig");
 const tunnel = @import("tunnel.zig");
+const platform_mod = @import("platform.zig");
+const build_options = @import("build_options");
 
 pub const GameState = enum {
     init,
@@ -37,7 +39,7 @@ pub const Game = struct {
         std.debug.print("[GAME] Cleaning up game...\n", .{});
     }
 
-    pub fn update(self: *Game, render: *engine.Render) bool {
+    pub fn update(self: *Game, render: *engine.Render, plat: *platform_mod.Platform) bool {
         switch (self.state) {
             .init => {
                 self.state = .menu;
@@ -51,7 +53,27 @@ pub const Game = struct {
                 render.drawText("PRESS SPACE TO START", 120);
                 render.drawText("PRESS Q TO QUIT", 135);
                 
-                // Menu logic - stay in menu until player input triggers state change
+                // Check for input based on backend
+                const backend_name = build_options.backend;
+                
+                // Check for SPACE key to start game
+                if (std.mem.eql(u8, backend_name, "x11")) {
+                    // X11 key codes (XK_space = 0x20, XK_q = 0x71)
+                    if (plat.isKeyPressed(0x20)) {
+                        self.state = .newgame;
+                    }
+                    if (plat.isKeyPressed(0x71)) {
+                        self.state = .exit;
+                    }
+                } else if (std.mem.eql(u8, backend_name, "raylib")) {
+                    // Raylib key codes (KEY_SPACE = 32, KEY_Q = 81)
+                    if (plat.isKeyPressed(32)) {
+                        self.state = .newgame;
+                    }
+                    if (plat.isKeyPressed(81)) {
+                        self.state = .exit;
+                    }
+                }
             },
             .newgame => {
                 self.round = 0;

@@ -53,7 +53,7 @@ pub fn main() !void {
         plat.renderBegin(&render);
 
         // Update game state
-        running = game.update(&render);
+        running = game.update(&render, &plat);
 
         // End frame
         plat.renderEnd(&render);

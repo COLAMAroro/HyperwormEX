@@ -33,6 +33,11 @@ pub const Platform = struct {
     mouse_locked: bool,
     mouse_click: u8,
 
+    pub fn isKeyPressed(self: *const Platform, keysym: c_ulong) bool {
+        if (keysym >= self.keys.len) return false;
+        return self.keys[@intCast(keysym)] != 0;
+    }
+
     pub fn init() !Platform {
         std.debug.print("[PLATFORM] Initializing X11 backend...\n", .{});
 

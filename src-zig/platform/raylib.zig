@@ -18,6 +18,11 @@ pub const Platform = struct {
     fb_pixels: []raylib.Color,
     mouse_locked: bool,
 
+    pub fn isKeyPressed(self: *const Platform, key: c_int) bool {
+        _ = self;
+        return raylib.IsKeyDown(key);
+    }
+
     pub fn init() !Platform {
         std.debug.print("[PLATFORM] Initializing Raylib backend...\n", .{});
 
