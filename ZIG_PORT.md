@@ -22,12 +22,23 @@ zig build run
 
 ## Binary Size Comparison
 
-| Version | Build Type | Size |
-|---------|------------|------|
-| C       | Release (stripped) | 34 KB |
-| Zig     | ReleaseSmall (stripped) | **15 KB** |
+### On-Disk Size (File Size)
 
-**The Zig port is 56% smaller than the C version!**
+| Version | Build Type | On-Disk Size | Runtime Memory |
+|---------|------------|--------------|----------------|
+| C       | Release (stripped), Null backend | 34 KB | 65.9 MB |
+| Zig     | ReleaseSmall (stripped), Null backend | **15 KB** | **15.4 KB** |
+
+**The Zig port is 56% smaller on disk and uses 99.98% less runtime memory!**
+
+### Why the Size Difference?
+
+The C version includes systems not yet ported to Zig:
+- **67MB color LUT** (256×256×256 lookup table in BSS)
+- Angle and distance maps for tunnel effect
+- More complete game systems
+
+The Zig port currently includes only core functionality. When fully ported, sizes will be comparable, but Zig will still be smaller due to better optimization.
 
 ## Architecture
 
