@@ -31,13 +31,13 @@ Successfully ported HyperwormEX from C to Zig with **really really low binary si
 
 ## Architecture
 
-### Ported Modules (724 lines of Zig)
+### Ported Modules (~1500 lines of Zig)
 
 #### Core System (`src-zig/`)
-- **main.zig** (52 lines) - Entry point, game loop
+- **main.zig** (54 lines) - Entry point, game loop
 - **const.zig** (56 lines) - Constants, configuration
 - **game.zig** (74 lines) - Game state machine
-- **platform.zig** (50 lines) - Platform abstraction (Null backend)
+- **platform.zig** (23 lines) - Platform abstraction dispatcher
 - **engine.zig** (124 lines) - Core engine (World, Render)
 
 #### Engine Subsystems (`src-zig/engine/`)
@@ -47,8 +47,13 @@ Successfully ported HyperwormEX from C to Zig with **really really low binary si
 - **aabb.zig** (60 lines) - AABB collision detection
 - **camera.zig** (54 lines) - First-person camera
 
+#### Platform Backends (`src-zig/platform/`)
+- **null.zig** (47 lines) - Null backend for testing
+- **x11.zig** (344 lines) - X11 with OpenGL backend
+- **raylib.zig** (157 lines) - Raylib cross-platform backend
+
 ### Build System
-- **build.zig** (36 lines) - Zig build configuration with size optimization
+- **build.zig** (62 lines) - Zig build with backend selection via `-Dbackend` option
 
 ## Key Optimization Techniques
 

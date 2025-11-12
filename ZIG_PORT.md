@@ -16,9 +16,23 @@ zig build
 # Release build (optimized for size)
 zig build -Drelease
 
+# Select backend (null, x11, or raylib)
+zig build -Drelease -Dbackend=x11     # X11 with OpenGL (Linux)
+zig build -Drelease -Dbackend=raylib  # Raylib (cross-platform)
+zig build -Drelease -Dbackend=null    # Null backend (testing)
+
 # Run the game
 zig build run
+zig build run -Dbackend=x11  # Run with X11 backend
 ```
+
+### Backend Selection
+
+The build system supports selecting different backends at compile time using `-Dbackend`:
+
+- **null** (default): Minimal testing backend, no graphics, runs for 10 frames
+- **x11**: X11 with OpenGL for Linux (requires libX11 and libGL)
+- **raylib**: Raylib cross-platform backend (requires raylib)
 
 ## Binary Size Comparison
 
@@ -88,7 +102,7 @@ The Zig port maintains the same overall architecture as the C version:
 
 ### Ported Components ✅
 
-- [x] Build system (build.zig)
+- [x] Build system (build.zig) with runtime backend selection
 - [x] Core constants and configuration
 - [x] Vector mathematics (Vec3)
 - [x] Utility functions
@@ -97,7 +111,10 @@ The Zig port maintains the same overall architecture as the C version:
 - [x] World/voxel data structure
 - [x] Camera system
 - [x] Game state machine
-- [x] Platform abstraction (Null backend)
+- [x] Platform abstraction
+  - [x] Null backend (testing)
+  - [x] X11 backend (Linux with OpenGL)
+  - [x] Raylib backend (cross-platform)
 
 ### Remaining Work 🚧
 

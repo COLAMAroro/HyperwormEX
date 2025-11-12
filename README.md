@@ -19,14 +19,18 @@ input and audio backends to ease creation of custom ports.
 
 ## Zig Port
 
-A Zig port of Hyperworm EX is available with **significantly reduced binary size** (15KB vs 34KB)!
+A Zig port of Hyperworm EX is available with **significantly reduced binary size** (15KB vs 34KB for null backend)!
 
 See [ZIG_PORT.md](ZIG_PORT.md) for details on building and using the Zig version.
 
 ```bash
 # Build the Zig version (requires Zig 0.15.2+)
-zig build -Drelease
+zig build -Drelease -Dbackend=x11     # X11 backend (Linux)
+zig build -Drelease -Dbackend=raylib  # Raylib backend (cross-platform)
+zig build -Drelease -Dbackend=null    # Null backend (testing)
 ```
+
+The Zig port supports compile-time backend selection (X11, Raylib, or Null) via the `-Dbackend` build option.
 
 ## Building the Game (C Version)
 

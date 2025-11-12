@@ -24,7 +24,7 @@ pub fn main() !void {
     // Display loading message
     render.drawText("PRECACHING...", c.SOFTWARE_HEIGHT / 2 - 5);
     plat.renderBegin(&render);
-    plat.renderEnd();
+    plat.renderEnd(&render);
 
     // Initialize game
     var game = try game_mod.Game.init(&render);
@@ -47,7 +47,7 @@ pub fn main() !void {
         running = game.update(&render);
 
         // End frame
-        plat.renderEnd();
+        plat.renderEnd(&render);
     }
 
     std.debug.print("[GAME] Quitting.\n", .{});
